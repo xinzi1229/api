@@ -3,7 +3,7 @@ let currentUserId = null;
 let currentUsername = null;
 let uploadedImageUrl = null;
 let isImageUploading = false;
-
+const rootUrl = 'https://yimai.aicoat.top'; // 项目根路径
 // 切换登录/注册表单
 function toggleAuth() {
     const loginForm = document.getElementById('loginForm');
@@ -19,7 +19,7 @@ async function login(event) {
     const password = document.getElementById('loginPassword').value;
 
     try {
-        const response = await fetch('/api/login', {
+        const response = await fetch(rootUrl+'/api/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username, password })
@@ -48,7 +48,7 @@ async function register(event) {
     const password = document.getElementById('regPassword').value;
 
     try {
-        const response = await fetch('/api/register', {
+        const response = await fetch(rootUrl+'/api/register', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username, password })
@@ -159,7 +159,7 @@ async function uploadImage(file) {
     document.getElementById('submitBtn').classList.add('opacity-50', 'cursor-not-allowed');
 
     try {
-        const response = await fetch('/api/upload-image', {
+        const response = await fetch(rootUrl+'/api/upload-image', {
             method: 'POST',
             headers: {
                 'Authorization': encodeURIComponent(currentUsername)
@@ -203,7 +203,7 @@ async function addSale(event) {
     const buyerName = document.getElementById('buyerName').value;
 
     try {
-        const response = await fetch('/api/sales', {
+        const response = await fetch(rootUrl+'/api/sales', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -247,7 +247,7 @@ async function loadMyProfile() {
         document.getElementById('profileUsername').textContent = currentUsername;
         
         // 获取用户销售记录和统计
-        const response = await fetch('/api/mysales', {
+        const response = await fetch(rootUrl+'/api/mysales', {
             headers: { 'Authorization': encodeURIComponent(currentUsername) }
         });
         const data = await response.json();
@@ -322,7 +322,7 @@ async function deleteSale(id) {
 // 加载统计数据
 async function loadStats() {
     try {
-        const response = await fetch('/api/stats', {
+        const response = await fetch(rootUrl+'/api/stats', {
             headers: { 'Authorization': encodeURIComponent(currentUsername) }
         });
         const data = await response.json();
